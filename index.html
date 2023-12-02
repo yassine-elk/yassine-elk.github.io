@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Responsive Blog</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            padding-top: 56px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding-top: 80px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Responsive Blog</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+            aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="sortArticles('name')">Sort by Name</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="sortArticles('title')">Sort by Title</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Blog Entries Column -->
+            <div class="col-md-8">
+                <h1 class="my-4">Latest Articles</h1>
+
+                <!-- Blog Post 1 -->
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Article Image">
+                    <div class="card-body">
+                        <h2 class="card-title">Article Title 1</h2>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis
+                            lorem
+                            ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit
+                            amet
+                            dui. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                    </div>
+                </div>
+
+                <!-- Blog Post 2 -->
+                <div class="card mb-4">
+                    <img class="card-img-top" src="https://via.placeholder.com/750x300" alt="Article Image">
+                    <div class="card-body">
+                        <h2 class="card-title">Article Title 2</h2>
+                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis
+                            lorem
+                            ut libero malesuada feugiat. Vestibulum ac diam sit amet quam vehicula elementum sed sit
+                            amet
+                            dui. Praesent sapien massa, convallis a pellentesque nec, egestas non nisi.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Sidebar Widgets Column -->
+            <div class="col-md-4">
+
+                <!-- Search Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Search</h5>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search for...">
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button">Go!</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                    <h5 class="card-header">Categories</h5>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#">Category 1</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 2</a>
+                            </li>
+                            <li>
+                                <a href="#">Category 3</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Sample array of articles
+        const articles = [
+            { title: 'Article Title 1', name: 'Alice' },
+            { title: 'Article Title 2', name: 'Bob' },
+            { title: 'Article Title 3', name: 'Charlie' }
+        ];
+
+        // Function to render articles
+        function renderArticles(articles) {
+            const articlesContainer = document.querySelector('.col-md-8');
+            articlesContainer.innerHTML = '';
+
+            articles.forEach(article => {
+                const card = document.createElement('div');
+                card.classList.add('card', 'mb-4');
+
+                card.innerHTML = `
+                    <img class="card-img-top" src="https://picsum.photos/200/200" alt="Article Image">
+                    <div class="card-body">
+                        <h2 class="card-title">${article.title}</h2>
+                        <p class="card-text">Author: ${article.name}</p>
+                    </div>
+                `;
+
+                articlesContainer.appendChild(card);
+            });
+        }
+
+        // Function to sort articles by name or title
+        function sortArticles(property) {
+            const sortedArticles = [...articles].sort((a, b) => {
+                const valueA = a[property].toUpperCase();
+                const valueB = b[property].toUpperCase();
+
+                if (valueA < valueB) {
+                    return -1;
+                }
+
+                if (valueA > valueB) {
+                    return 1;
+                }
+
+                return 0;
+            });
+
+            renderArticles(sortedArticles);
+        }
+
+        // Initial rendering of articles
+        renderArticles(articles);
+    </script>
+
+</body>
+
+</html>
